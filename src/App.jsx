@@ -1,35 +1,122 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import React, { useEffect, useState } from "react";
+import axios from "axios";
+import Simpsons from "./components/Simpsons";
+import Loading from "./components/Loading";
+import Search from "./components/Search";
 
-function App() {
-  const [count, setCount] = useState(0)
+import "./App.css";
+
+const App = () => {
+  const [simpsons, setSimpsons] = useState(); //hooks always go at top
+  const [search, searchInput] = useState("");
+  const [liked, likeDislikeInput] = useState("");
+
+  const getData = async () => {
+    try {
+      const { data } = await axios.get(
+        `https://thesimpsonsquoteapi.glitch.me/quotes?count=10`
+      );
+      //fix the api data to have unique id
+      data.forEach((element, index) => {
+        element.id = index + Math.random();
+      });
+      setSimpsons(data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    getData();
+  }, []); // hook that triggers behaviour - means run once cos square brackets (dependancy array)
+
+  const onLikeToggle = (id) => {
+    const char = [...simpsons.char];
+    const indexOf = list.findIndex((char) => {
+      return char.id === id;
+    });
+    ///toggle liked property
+    char[indexOf].liked = !char[indexOf].liked;
+    setSimpsons({ ...simpsons, char });
+  };
+
+  const onDelete = (id) => {
+    const char = [...simpsons.char];
+    const indexOf = list.findIndex((char) => {
+      return char.id === id;
+    });
+    char.splice(indexOf, 1);
+    setSimpsons({ ...simpsons, char });
+  };
+
+  const onSearchInput = (e) => {
+    search(e.target.value);
+  };
+
+  const onLikeDislikeInput = (e) => {
+    // console.log("yo");
+    liked(e.target.value);
+  };
+
+  //if nothing in state show "loading"
+  if (!simpsons) return <Loading />;
+  // console.log(simpsons); //check if data is in state
+
+  if (simpsons.length === 0) return <p>You deleted everyone!</p>;
+
+  //filter by search
+  let simpsonsCopy = [...simpsons];
+  // if (searchInput) {
+  //   simpsonsCopy = simpsonsCopy.filter((item) => {
+  //     console.log(item.character, searchInput);
+  //     if (item.character.toLowerCase().includes(searchInput.toLowerCase())) {
+  //       return true;
+  //     }
+  //   });
+  // }
+  //sort by liked/not liked
+
+  if (likeDislikeInput === "liked") {
+    simpsonsCopy.sort((itemOne, itemTwo) => {
+      if (itemOne.liked === true) return -1;
+      if (!itemTwo.liked) return 1;
+    });
+  } else if (likeDislikeInput === "notLiked") {
+    simpsonsCopy.sort((itemOne, itemTwo) => {
+      if (itemTwo.liked === true) return -1;
+      if (!itemOne.liked) return 1;
+    });
+  }
+
+  // calculate the total
+  let total = 0;
+  simpsonsCopy.forEach((char) => {
+    if (char.liked) total++;
+  });
 
   return (
     <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+      <div className="title">
+        <img
+          className="logo"
+          src="src/assets/simpsons-logo-pink.svg"
+          alt="simpsons logo"
+        ></img>
+        <h1>Total No of Liked Characters is -{total}</h1>
+        <Search
+          onSearchInput={onSearchInput}
+          onLikeDislikeInput={onLikeDislikeInput}
+        />
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+      <Simpsons
+        simpsons={simpsons}
+        onLikeToggle={onLikeToggle}
+        onDelete={onDelete}
+        onSearchInput={onSearchInput}
+        onLikeDislikeInput={onLikeDislikeInput}
+      />
     </>
-  )
-}
+  ); //must return HTML
+};
 
-export default App
+export default App;
