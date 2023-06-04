@@ -4,7 +4,7 @@ const Name = (props) => {
   return (
     <div>
       <h2>{character}</h2>
-      <button className="liked" onClick={() => onLikeToggle(!liked)}>
+      <button className="liked" onClick={() => onLikeToggle(id)}>
         {liked ? "Liked" : "Not liked"}
       </button>
     </div>

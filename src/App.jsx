@@ -8,8 +8,8 @@ import "./App.css";
 
 const App = () => {
   const [simpsons, setSimpsons] = useState(); //hooks always go at top
-  const [search, searchInput] = useState("");
-  const [liked, likeDislikeInput] = useState("");
+  const [search, setSearch] = useState("");
+  const [liked, setLiked] = useState("");
 
   const getData = async () => {
     try {
@@ -31,31 +31,33 @@ const App = () => {
   }, []); // hook that triggers behaviour - means run once cos square brackets (dependancy array)
 
   const onLikeToggle = (id) => {
-    const char = [...simpsons.char];
-    const indexOf = list.findIndex((char) => {
+    const _simpsons = [...simpsons];
+    const indexOf = _simpsons.findIndex((char) => {
       return char.id === id;
     });
     ///toggle liked property
-    char[indexOf].liked = !char[indexOf].liked;
-    setSimpsons({ ...simpsons, char });
+
+    console.log(indexOf, id);
+    _simpsons[indexOf].liked = !_simpsons[indexOf].liked;
+    setSimpsons(_simpsons);
   };
 
   const onDelete = (id) => {
-    const char = [...simpsons.char];
-    const indexOf = list.findIndex((char) => {
+    const _simpsons = [...simpsons];
+    const indexOf = _simpsons.findIndex((char) => {
       return char.id === id;
     });
-    char.splice(indexOf, 1);
-    setSimpsons({ ...simpsons, char });
+    _simpsons.splice(indexOf, 1);
+    setSimpsons(_simpsons);
   };
 
   const onSearchInput = (e) => {
-    search(e.target.value);
+    setSearch(e.target.value);
   };
 
   const onLikeDislikeInput = (e) => {
     // console.log("yo");
-    liked(e.target.value);
+    setLiked(e.target.value);
   };
 
   //if nothing in state show "loading"
@@ -66,22 +68,22 @@ const App = () => {
 
   //filter by search
   let simpsonsCopy = [...simpsons];
-  // if (searchInput) {
-  //   simpsonsCopy = simpsonsCopy.filter((item) => {
-  //     console.log(item.character, searchInput);
-  //     if (item.character.toLowerCase().includes(searchInput.toLowerCase())) {
-  //       return true;
-  //     }
-  //   });
-  // }
+  if (search) {
+    simpsonsCopy = simpsonsCopy.filter((item) => {
+      console.log(item.character, search);
+      if (item.character.toLowerCase().includes(search.toLowerCase())) {
+        return true;
+      }
+    });
+  }
   //sort by liked/not liked
-
-  if (likeDislikeInput === "liked") {
+  console.log(liked);
+  if (liked === "liked") {
     simpsonsCopy.sort((itemOne, itemTwo) => {
       if (itemOne.liked === true) return -1;
       if (!itemTwo.liked) return 1;
     });
-  } else if (likeDislikeInput === "notLiked") {
+  } else if (liked === "notLiked") {
     simpsonsCopy.sort((itemOne, itemTwo) => {
       if (itemTwo.liked === true) return -1;
       if (!itemOne.liked) return 1;
@@ -109,11 +111,11 @@ const App = () => {
         />
       </div>
       <Simpsons
-        simpsons={simpsons}
+        simpsons={simpsonsCopy}
         onLikeToggle={onLikeToggle}
         onDelete={onDelete}
-        onSearchInput={onSearchInput}
-        onLikeDislikeInput={onLikeDislikeInput}
+        // onSearchInput={onSearchInput}
+        // onLikeDislikeInput={onLikeDislikeInput}
       />
     </>
   ); //must return HTML
