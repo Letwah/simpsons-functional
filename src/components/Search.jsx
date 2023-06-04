@@ -1,6 +1,4 @@
 const Search = (props) => {
-  //   state = {};
-
   const { onSearchInput, onLikeDislikeInput } = props;
   // console.log(typeof onLikeDislikeInput);
 

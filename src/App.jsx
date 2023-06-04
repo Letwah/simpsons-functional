@@ -10,6 +10,7 @@ const App = () => {
   const [simpsons, setSimpsons] = useState(); //hooks always go at top
   const [search, setSearch] = useState("");
   const [liked, setLiked] = useState("");
+  // const [isToggled, toggle] = useState("");
 
   const getData = async () => {
     try {
@@ -49,6 +50,11 @@ const App = () => {
     });
     _simpsons.splice(indexOf, 1);
     setSimpsons(_simpsons);
+  };
+
+  //ATTEMPT AT set direction here
+  const onDirection = (e) => {
+    setDirection(e.target.value);
   };
 
   const onSearchInput = (e) => {
@@ -114,8 +120,7 @@ const App = () => {
         simpsons={simpsonsCopy}
         onLikeToggle={onLikeToggle}
         onDelete={onDelete}
-        // onSearchInput={onSearchInput}
-        // onLikeDislikeInput={onLikeDislikeInput}
+        onDirection={onDirection}
       />
     </>
   ); //must return HTML
