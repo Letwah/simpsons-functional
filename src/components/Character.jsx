@@ -7,7 +7,9 @@ import Direction from "./Direction";
 const Character = (props) => {
   const { character, quote, image, id, characterDirection, liked } = props.item;
   const { onLikeToggle, onDelete } = props;
-  const { onDirection, onSetDirectionToggle } = props;
+  const { onDirection } = props;
+
+  // console.log(direction);
 
   if (characterDirection === "Right") {
     return (
@@ -22,10 +24,7 @@ const Character = (props) => {
         <Quote quote={quote} />
         <Image image={image} character={character} liked={liked} />
         <Delete onDelete={onDelete} id={id} />
-        <Direction
-          onDirection={onDirection}
-          setDirectionToggle={onSetDirectionToggle}
-        />
+        <Direction onDirection={onDirection} id={id} />
       </div>
     );
   }
@@ -41,10 +40,7 @@ const Character = (props) => {
       <Image image={image} character={character} liked={liked} />
       <Quote quote={quote} />
       <Delete onDelete={onDelete} id={id} />
-      <Direction
-        onDirection={onDirection}
-        setDirectionToggle={onSetDirectionToggle}
-      />
+      <Direction onDirection={onDirection} id={id} />
     </div>
   );
 };

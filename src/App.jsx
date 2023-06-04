@@ -10,7 +10,7 @@ const App = () => {
   const [simpsons, setSimpsons] = useState(); //hooks always go at top
   const [search, setSearch] = useState("");
   const [liked, setLiked] = useState("");
-  // const [isToggled, toggle] = useState("");
+  const [direction, setDirection] = useState(false);
 
   const getData = async () => {
     try {
@@ -53,8 +53,24 @@ const App = () => {
   };
 
   //ATTEMPT AT set direction here
-  const onDirection = (e) => {
-    setDirection(e.target.value);
+  const onDirection = (id) => {
+    const _simpsons = [...simpsons];
+    const indexOf = _simpsons.findIndex((char) => {
+      return char.id === id;
+    });
+    ///toggle liked property
+
+    console.log(indexOf, id);
+    // if (_simpsons[indexOf].characterDirection === "Left") {
+    //   _simpsons[indexOf].characterDirection = "Right";
+    // } else {
+    //   _simpsons[indexOf].characterDirection = "Left";
+    // }
+
+    _simpsons[indexOf].characterDirection =
+      _simpsons[indexOf].characterDirection === "Left" ? "Right" : "Left";
+
+    setSimpsons(_simpsons);
   };
 
   const onSearchInput = (e) => {
@@ -83,7 +99,7 @@ const App = () => {
     });
   }
   //sort by liked/not liked
-  console.log(liked);
+  // console.log(liked);
   if (liked === "liked") {
     simpsonsCopy.sort((itemOne, itemTwo) => {
       if (itemOne.liked === true) return -1;
@@ -121,6 +137,8 @@ const App = () => {
         onLikeToggle={onLikeToggle}
         onDelete={onDelete}
         onDirection={onDirection}
+        setDirection={onDirection}
+        direction={direction}
       />
     </>
   ); //must return HTML

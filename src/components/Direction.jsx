@@ -1,18 +1,21 @@
 const Direction = (props) => {
-  const { onDirection, setDirection, characterDirection } = props;
+  const { onDirection, id } = props;
   return (
     <>
       <div>
-        <label
-          onClick={() => onDirection(setDirection, characterDirection)}
-          className="directionToggle"
-        >
+        <label className="directionToggle">
           Switch Character Direction
-          <input type="checkbox" />
+          <input
+            type="checkbox"
+            onClick={() => {
+              console.log("ran", Date.now());
+              onDirection(id);
+            }}
+          />
           <span className="slider round"></span>
         </label>
 
-        {/* {toggle ? setToggle : toggle} */}
+        {/* {onDirection ? setDirectionToggle : } */}
       </div>
     </>
   );

@@ -7,7 +7,7 @@ const Simpsons = (props) => {
     onLikeToggle,
     onLikeDislikeInput,
     onDirection,
-    onSetDirectionToggle,
+    direction,
   } = props;
   return (
     <>
@@ -20,7 +20,7 @@ const Simpsons = (props) => {
             onLikeToggle={onLikeToggle}
             onLikeDislikeInput={onLikeDislikeInput}
             onDirection={onDirection}
-            setDirectionToggle={onSetDirectionToggle}
+            direction={direction}
           />
         );
       })}
