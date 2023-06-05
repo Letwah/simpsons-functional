@@ -125,7 +125,10 @@ const App = () => {
           src="src/assets/simpsons-logo-pink.svg"
           alt="simpsons logo"
         ></img>
-        <h1>Total No of Liked Characters is -{total}</h1>
+        <h1>
+          Total No of Liked Characters <span>&#128073; </span>
+          {total}
+        </h1>
         <Search
           onSearchInput={onSearchInput}
           onLikeDislikeInput={onLikeDislikeInput}

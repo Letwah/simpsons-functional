@@ -50,14 +50,14 @@
 /*MY STUFF*/
 
 img.liked {
-  width: 150px;
+  width: 200px;
   transform: scale(1);
   animation: pulse 2s infinite;
 }
 
 img.notLiked {
   width: 150px;
-  transform: scale(0.75);
+
   filter: grayscale(1);
 }
 
@@ -108,6 +108,11 @@ h2 {
 div.title > img.logo {
   padding-bottom: 0;
 }
+/*attempt at rotating H*/
+/* span.rot45 {
+  transform: rotate(-45deg);
+  float: right;
+} */
 
 .characterContainer {
   display: flex;
@@ -132,11 +137,6 @@ div.title > img.logo {
   margin: 0.5em;
   align-items: center;
   justify-content: center;
-}
-
-div > img.liked {
-  transform: scale(1);
-  animation: pulse 2s infinite;
 }
 
 p {
