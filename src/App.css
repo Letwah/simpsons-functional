@@ -283,8 +283,15 @@ p {
 .directionToggle {
   position: relative;
   display: inline;
-  width: 60px;
-  height: 34px;
+  width: 70px;
+  margin-bottom: 20px;
+}
+
+.directionToggle p {
+  white-space: wrap;
+  margin-bottom: 0;
+  line-height: 1;
+  font-size: 0.8em;
 }
 
 /* Hide default HTML checkbox */
@@ -296,35 +303,40 @@ p {
 
 /* The slider */
 .slider {
+  margin: 0 0 40px 0;
   position: absolute;
   cursor: pointer;
-  top: 95%;
+  top: 75%;
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: #ff41f6;
+  background-color: #f750c5;
   -webkit-transition: 0.4s;
   transition: 0.4s;
 }
 
 .slider:before {
   position: absolute;
-  content: "";
+  content: url("./assets/DohNut.png");
   height: 26px;
   width: 26px;
   left: 4px;
   bottom: 4px;
-  background-color: white;
+
   -webkit-transition: 0.4s;
   transition: 0.4s;
 }
 
+.slider::after {
+  background-color: #1a1a1a;
+}
+
 input:checked + .slider {
-  background-color: #2196f3;
+  background-color: #5596cf;
 }
 
 input:focus + .slider {
-  box-shadow: 0 0 1px #2196f3;
+  box-shadow: 0 0 10px #f750c5;
 }
 
 input:checked + .slider:before {
@@ -335,9 +347,12 @@ input:checked + .slider:before {
 
 /* Rounded sliders */
 .slider.round {
-  border-radius: 34px;
+  border: 2px solid #1a1a1a;
+  border-radius: 20px;
+  height: 37px;
 }
 
 .slider.round:before {
   border-radius: 50%;
+  border: 1px solid #1a1a1a;
 }

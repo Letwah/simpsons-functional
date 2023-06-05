@@ -4,7 +4,8 @@ const Direction = (props) => {
     <>
       <div>
         <label className="directionToggle">
-          Switch Character Direction
+          <p>Switch Character Direction</p>
+
           <input
             type="checkbox"
             onClick={() => {

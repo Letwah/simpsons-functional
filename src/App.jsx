@@ -10,7 +10,6 @@ const App = () => {
   const [simpsons, setSimpsons] = useState(); //hooks always go at top
   const [search, setSearch] = useState("");
   const [liked, setLiked] = useState("");
-  const [direction, setDirection] = useState(false);
 
   const getData = async () => {
     try {
@@ -138,7 +137,6 @@ const App = () => {
         onDelete={onDelete}
         onDirection={onDirection}
         setDirection={onDirection}
-        direction={direction}
       />
     </>
   ); //must return HTML

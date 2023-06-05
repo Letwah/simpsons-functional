@@ -6,8 +6,7 @@ import Direction from "./Direction";
 
 const Character = (props) => {
   const { character, quote, image, id, characterDirection, liked } = props.item;
-  const { onLikeToggle, onDelete } = props;
-  const { onDirection } = props;
+  const { onLikeToggle, onDelete, onDirection } = props;
 
   // console.log(direction);
 
