@@ -26,6 +26,25 @@ const App = () => {
     }
   };
 
+  const getSearchData = async () => {
+    try {
+      const { data } = await axios.get(
+        `https://thesimpsonsquoteapi.glitch.me/quotes?count=15&character=${search}`
+      );
+      //fix the api data to have unique id
+      data.forEach((element, index) => {
+        element.id = index + Math.random();
+      });
+      setSimpsons(data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    getSearchData();
+  }, [search]);
+
   useEffect(() => {
     getData();
   }, []); // hook that triggers behaviour - means run once cos square brackets (dependancy array)
@@ -87,16 +106,18 @@ const App = () => {
 
   if (simpsons.length === 0) return <p>You deleted everyone!</p>;
 
-  //filter by search
   let simpsonsCopy = [...simpsons];
-  if (search) {
-    simpsonsCopy = simpsonsCopy.filter((item) => {
-      console.log(item.character, search);
-      if (item.character.toLowerCase().includes(search.toLowerCase())) {
-        return true;
-      }
-    });
-  }
+  //filter by search
+
+  // if (search) {
+  //   simpsonsCopy = simpsonsCopy.filter((item) => {
+  //     console.log(item.character, search);
+  //     if (item.character.toLowerCase().includes(search.toLowerCase())) {
+  //       return true;
+  //     }
+  //   });
+  // }
+
   //sort by liked/not liked
   // console.log(liked);
   if (liked === "liked") {
